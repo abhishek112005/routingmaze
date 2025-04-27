@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Routing Maze Game</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <h1>🕹️ Routing Maze Game</h1>
+  <p>Click cells to toggle walls. Then <strong>Find Path</strong> to see Dijkstra in action.</p>
+
+  <div class="controls">
+    <label>Grid Size:
+      <select id="sizeSelect">
+        <option value="10">10×10</option>
+        <option value="20">20×20</option>
+        <option value="25" selected>25×25</option>
+        <option value="30">30×30</option>
+        <option value="40">40×40</option>
+      </select>
+    </label>
+    <button id="findBtn">Find Path</button>
+    <!-- <button id="resetBtn">Reset Walls</button> -->
+    <label>Speed:
+      <input type="range" id="speedSlider" min="50" max="500" value="200"/>
+      <span id="speedVal">200ms</span>
+    </label>
+  </div>
+
+  <div class="legend">
+    <div><span class="cell start"></span> Start</div>
+    <div><span class="cell end"></span> End</div>
+    <div><span class="cell wall"></span> Wall</div>
+    <div><span class="cell visited"></span> Visited</div>
+    <div><span class="cell path"></span> Shortest Path</div>
+  </div>
+
+  <div class="grid-container">
+    <div id="grid" class="grid"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+:root {
+  --bg: linear-gradient(135deg, #e0eafc, #cfdef3);
+  --cell-bg: rgba(255, 255, 255, 0.6);
+  --wall: rgba(51, 51, 51, 0.8);
+  --start: #4caf50;
+  --end: #f44336;
+  --visited: rgba(255, 213, 79, 0.8);
+  --path: rgba(66, 165, 245, 0.8);
+  --border: rgba(255, 255, 255, 0.5);
+  --shadow: rgba(0,0,0,0.1);
+  --font: 'Segoe UI', sans-serif;
+  --glass-blur: blur(8px);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 1rem;
+  font-family: var(--font);
+  background: var(--bg);
+  color: #333;
+  text-align: center;
+  min-height: 100vh;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+}
+
+h1 {
+  margin-bottom: 0.2rem;
+  font-size: 2rem;
+  position: relative;
+}
+
+h1::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  width: 50px;
+  height: 4px;
+  background: linear-gradient(90deg, #42a5f5, #478ed1);
+  transform: translateX(-50%);
+  transition: width 0.3s;
+}
+
+h1:hover::after {
+  width: 100px;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+/* Controls Section */
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-radius: 20px;
+  padding: 1rem;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+}
+
+.controls button,
+.controls label {
+  font-size: 0.9rem;
+}
+
+.controls button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  background: var(--path);
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px var(--shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.controls button:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 12px rgba(66, 165, 245, 0.4);
+}
+
+.controls select {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.7);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.controls select:focus {
+  outline: none;
+  border-color: var(--path);
+  box-shadow: 0 0 0 3px rgba(66, 165, 245, 0.3);
+}
+
+.controls input[type=range] {
+  vertical-align: middle;
+  margin-left: 0.3rem;
+  accent-color: var(--path);
+}
+
+/* Legend Section */
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-radius: 20px;
+  padding: 1rem;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+}
+
+.legend div {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+}
+
+/* Grid and Cells */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(25, 24px);
+  grid-template-rows: repeat(25, 24px);
+  gap: 2px;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: fit-content;
+  padding-bottom: 1rem;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.grid:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.cell {
+  width: 24px;
+  height: 24px;
+  background: var(--cell-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  box-shadow: inset 0 1px 2px var(--shadow), 0 2px 4px var(--shadow);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+}
+
+.cell:hover {
+  transform: scale(1.1);
+}
+
+/* Specific Cell Types */
+.cell.wall {
+  background: var(--wall);
+  cursor: pointer;
+}
+
+.cell.start {
+  background: var(--start);
+  cursor: default;
+}
+
+.cell.end {
+  background: var(--end);
+  cursor: default;
+}
+
+.cell.visited {
+  background: var(--visited);
+}
+
+.cell.path {
+  background: var(--path);
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .controls button {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .controls select {
+    padding: 0.3rem 0.5rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(15, 24px);
+    grid-template-rows: repeat(15, 24px);
+  }
+
+  .cell {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  .controls button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .controls select {
+    padding: 0.3rem 0.5rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(10, 22px);
+    grid-template-rows: repeat(10, 22px);
+  }
+
+  .cell {
+    width: 20px;
+    height: 20px;
+  }
+}
